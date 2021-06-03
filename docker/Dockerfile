@@ -40,7 +40,7 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
     rosdep update
 
 # ------------------------------------------------------------------------------------------                                 
-# [2] OpenCV
+# [3] OpenCV
 
 RUN echo "[Dockerfile Info] Installing OPENCV Dependencies ......"
 RUN apt-get update && apt-get install -y \
@@ -94,7 +94,7 @@ RUN cd /opt/opencv-3.4.14/build && \
 
 	
 # ------------------------------------------------------------------------------------------
-# [3] Pangolin
+# [4] Pangolin
 RUN echo "[Dockerfile Info] Installing PNGOLIN Dependencies ......"
 RUN apt-get update && apt-get install -y \
 		libgl1-mesa-dev \
@@ -115,7 +115,21 @@ RUN mkdir -p ~/pangolin && \
 		cmake --build .	
 
 # ------------------------------------------------------------------------------------------
-# [3] Ceres Solver
+# [5] Eigen3
+RUN echo "[Dockerfile Info] Installing EIGEN3 Dependencies ......"
+# none 
+RUN echo "[Dockerfile Info] Installing EIGEN3 ......"
+RUN mkdir -p ~/eigen3 && \
+	cd ~/eigen3 && \
+	git clone https://github.com/libigl/eigen.git && \
+	cd eigen && \
+	mkdir build_dir && \
+	cd build_dir && \
+  	cmake ../ && \
+  	make install
+
+# ------------------------------------------------------------------------------------------
+# [6] Ceres Solver
 RUN echo "[Dockerfile Info] Installing Ceres Solver Dependencies ......"
 RUN apt-get update && apt-get install -y \
 	libsuitesparse-dev \
@@ -135,31 +149,20 @@ RUN mkdir -p ~/Ceres && \
         cmake .. && \
         make -j$(USE_PROC) install
 
-# ------------------------------------------------------------------------------------------
-# [4] Eigen3
-RUN echo "[Dockerfile Info] Installing EIGEN3 Dependencies ......"
-# none 
-RUN echo "[Dockerfile Info] Installing EIGEN3 ......"
-RUN mkdir -p ~/eigen3 && \
-	cd ~/eigen3 && \
-	git clone https://github.com/libigl/eigen.git && \
-	cd eigen && \
-	mkdir build_dir && \
-	cd build_dir && \
-  	cmake ../ && \
-  	make install
-
 
 # ------------------------------------------------------------------------------------------
-# [5] Orb-slam3
+# [7] Orb-slam3
 
 RUN apt-get update && apt-get install -y \
 	libpcap-dev \
 	libssl-dev
 
 # ------------------------------------------------------------------------------------------
-# [5] VINS-Fusion
+# [8] VINS-Fusion
 
-
+# ------------------------------------------------------------------------------------------
+# [9] bashrc setup
+RUN echo "export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/root/workspace/ORB_SLAM3/Examples/ROS" >> ~/.bashrc
+RUN echo "source /opt/ros/kinetic/setup.sh" >> ~/.bashrc
 
 CMD ["/bin/bash"]
