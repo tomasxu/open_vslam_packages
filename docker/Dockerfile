@@ -161,7 +161,16 @@ RUN apt-get update && apt-get install -y \
 # [8] VINS-Fusion
 
 # ------------------------------------------------------------------------------------------
-# [9] bashrc setup
+# [9] librealsense setup
+RUN mkdir -p /root/librealsense-deb
+COPY librealsense-deb/* /root/librealsense-deb/
+RUN cd /root/librealsense-deb && \
+    dpkg -i *.deb && \
+    apt-get install -f &&   \
+    dpkg -i *.deb
+
+# ------------------------------------------------------------------------------------------
+# [10] bashrc setup
 RUN echo "export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:/root/workspace/ORB_SLAM3/Examples/ROS" >> ~/.bashrc
 RUN echo "source /opt/ros/kinetic/setup.sh" >> ~/.bashrc
 
