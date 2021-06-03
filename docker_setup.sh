@@ -16,6 +16,7 @@ docker run \
         --net=host \
         --env=DISPLAY   \
         --volume=$HOME/.Xauthority:/root/.Xauthority \
+        --volume="/dev:/dev" \
         vslam_env
 
 
