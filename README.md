@@ -10,6 +10,11 @@
 ```
 docker start vslam_runner
 docker attach vslam_runner
+
+or
+
+docker exec -it vslam_runner bash
+
 ```
 
 3. compile orb-slam3
@@ -30,4 +35,5 @@ source ~/catkin_ws/devel/setup.bash
 ```
 
 ## node
-1. make sure you have workspace under $HOME(/home/xxx), which will mapped to docker during container setup
+1. make sure you have a folder named workspace under $HOME(/home/xxx), 
+which will mapped be to docker during container setup
