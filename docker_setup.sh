@@ -8,6 +8,7 @@ echo Build container
 # -it   inveractive terminal
 # --net=host    sharing network from base OS
 # --volume  share host's xserver with a container
+# --privileged real root
 docker run \
         -d  \
         -it \
@@ -17,6 +18,7 @@ docker run \
         --env=DISPLAY   \
         --volume=$HOME/.Xauthority:/root/.Xauthority \
         --volume="/dev:/dev" \
+        --privileged    \
         vslam_env
 
 
