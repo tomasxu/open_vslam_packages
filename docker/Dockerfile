@@ -163,7 +163,7 @@ RUN apt-get update && apt-get install -y \
 # ------------------------------------------------------------------------------------------
 # [9] librealsense setup
 RUN mkdir -p /root/librealsense-deb
-COPY librealsense-deb/* /root/librealsense-deb/
+COPY ./librealsense-deb /root/librealsense-deb/
 RUN cd /root/librealsense-deb && \
     dpkg -i *.deb && \
     apt-get install -f &&   \
