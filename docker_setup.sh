@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo docker build -t vslam_env docker
+sudo docker build -t vslam_env .
 
 echo Build container
 

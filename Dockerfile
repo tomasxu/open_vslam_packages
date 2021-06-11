@@ -163,11 +163,18 @@ RUN apt-get update && apt-get install -y \
 # ------------------------------------------------------------------------------------------
 # [9] librealsense setup
 RUN mkdir -p /root/librealsense-deb
-COPY ./librealsense-deb /root/librealsense-deb/
-RUN cd /root/librealsense-deb && \
-    dpkg -i *.deb && \
-    apt-get install -f &&   \
-    dpkg -i *.deb
+COPY ./librealsense-deb/* /root/librealsense-deb/
+RUN apt-get install -y	\
+    ros-kinetic-ddynamic-reconfigure	\
+    at	\
+    apt-utils	\
+    libgtk-3-dev \
+    libglfw3 \
+    dkms
+
+RUN cd /root/librealsense-deb && \ 
+    dpkg -i *.deb 
+
 
 # ------------------------------------------------------------------------------------------
 # [10] bashrc setup
